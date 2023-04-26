@@ -1,0 +1,193 @@
+```{r, include=FALSE}
+setwd("/cloud/project")
+
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("countrycode")
+install.packages("maps")
+install.packages("readr")
+
+
+library(dplyr)
+library(ggplot2)
+library(countrycode)
+library(maps)
+library(readr)
+library(knitr)
+library(magrittr)
+
+options(warn = -1)
+```
+
+
+
+```{r, echo=FALSE, include=FALSE}
+
+# Loading dataset and changing variable names for easy usage
+
+library(dplyr)
+library(ggplot2)
+library(countrycode)
+library(maps)
+library(readr)
+
+metadata <- read_csv("unicef_metadata.csv")
+ind_1 <- read_csv("unicef_indicator_1.csv")
+
+names(metadata)
+metadata_renamed <- rename(metadata, "pop" = "Population, total", "gdpcap" = "GDP per capita (constant 2015 US$)", 
+                           "GNI" = "GNI (current US$)", "inflation" = "Inflation, consumer prices (annual %)", "lifeExp" = "Life expectancy at birth, total (years)")
+                           
+```
+
+ 
+
+```{r, echo=FALSE, include=FALSE}
+
+# Adding new variable for continents
+
+metadata_continents <- metadata_renamed %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+ind_1_continents <- ind_1 %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+```  
+ 
+# Worldmap Chart (Overall Data)
+
+```{r, echo=FALSE}
+pop_2020 <- ind_1_continents %>% 
+  filter(time_period == "2020")
+
+map_world <- map_data("world") 
+map_pop_2020 <- full_join(map_world, pop_2020, by = c("region" = "country"))
+ggplot(data = map_pop_2020) +
+  aes(x = long, y = lat, group = group, fill = obs_value) +
+  geom_polygon() +
+  labs(
+    title = "Proportion of Schools with Basic Hygiene Services by Country in 2020",
+    subtitle = "Countries in grey depict lack of data",
+    caption = "Source: Unicef Indicator 1",
+    x = "Longitude",
+    y = "Latitude",
+    fill = "Observation Value (%)") +
+    theme_classic()
+    
+```
+
+
+# Bar Charts
+
+```{r, echo=FALSE}
+
+ind_1_continents %>%
+  filter(country %in% c("India")) %>%
+  ggplot(aes(x = time_period, y = obs_value)) +
+  geom_col() +
+  labs(x = "Year", y = "Observed value(%)", 
+       title = "India's Proportion of Schools w/ basic Hygiene Services over time") +
+  theme_classic()
+
+```
+
+
+
+```{r, echo=FALSE, include=FALSE}
+
+# Loading dataset and changing variable names for easy usage
+
+metadata <- read_csv("unicef_metadata.csv")
+ind_1 <- read_csv("unicef_indicator_1.csv")
+
+names(metadata)
+metadata_renamed <- rename(metadata, "pop" = "Population, total", "gdpcap" = "GDP per capita (constant 2015 US$)", 
+                           "GNI" = "GNI (current US$)", "inflation" = "Inflation, consumer prices (annual %)", "lifeExp" = "Life expectancy at birth, total (years)")
+                           
+```
+
+ 
+
+```{r, echo=FALSE, include=FALSE}
+
+# Adding new variable for continents
+
+metadata_continents <- metadata_renamed %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+ind_1_continents <- ind_1 %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+```
+
+
+
+```{r, echo=FALSE, include=FALSE}
+
+# Loading dataset and changing variable names for easy usage
+
+metadata <- read_csv("unicef_metadata.csv")
+ind_1 <- read_csv("unicef_indicator_1.csv")
+
+names(metadata)
+metadata_renamed <- rename(metadata, "pop" = "Population, total", "gdpcap" = "GDP per capita (constant 2015 US$)", 
+                           "GNI" = "GNI (current US$)", "inflation" = "Inflation, consumer prices (annual %)", "lifeExp" = "Life expectancy at birth, total (years)")
+                           
+
+# Adding new variable for continents 
+
+
+metadata_continents <- metadata_renamed %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+ind_1_continents <- ind_1 %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+```
+
+# Splitting scatter plots according to continent
+
+```{r, echo=FALSE}
+
+metadata_continents %>%
+  filter(year == "2020") %>%
+  ggplot(aes(x = gdpcap, y = lifeExp, color = continent)) +
+  geom_point() +
+  facet_wrap(~ continent) +
+  labs(x = "GDP Per Capita in 2020 (constant 2015 US$)", y = "Life Expectancy", 
+     title = "Life Expectancy vs GDP/capita in 2020") +
+  theme_classic()
+
+
+```
+
+# Scartterplot with regression line
+
+```{r, echo=FALSE}
+
+options(warn = -1)
+
+suppressPackageStartupMessages(library(ggplot2))
+
+cat(capture.output(metadata_continents %>%
+  filter(year == "2020") %>%
+  ggplot(aes(x = gdpcap, y = lifeExp, color = continent, warning = FALSE)) +
+  geom_point() + try(geom_smooth(method = "lm", se = FALSE, formula = y ~ x), silent = TRUE) + # For regression line
+  labs(x = "GDP Per Capita (constant 2015 US $)", y = "Life Expectancy (years)", color = "Continent",
+       title = "Life Expectancy vs GDP/capita in 2020") +
+  theme_classic()
+))
+```
+
+# Time series plots over time
+
+```{r, echo=FALSE}
+
+ind_1 %>%
+  filter(country %in% c("India")) %>% # filter for rows where country is "India"
+  ggplot(aes(x = time_period, y = obs_value)) + 
+  geom_line() + # plot the lines
+  labs(x = "Year",y = "Observation Value (%)",
+          title = "Proportion of Schools w/ basic Hygiene Services in India") +
+  theme_bw()
+
+```
