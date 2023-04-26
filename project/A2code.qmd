@@ -1,0 +1,270 @@
+---
+title: "DA&V Assignment 2"
+subtitle: "MSc. Management (Strategy)"
+author: "Bilal Shahid"
+date: "04/26/2023"
+format: html
+---
+
+These visualisations are made for *'Assignment 2'* of the Data Analytics and
+Visualisations course at DCU for my Masters degree. Data is adopted from UNICEF.
+
+The primary indicator used is:
+
+***Proportion of Schools With Basic Hygiene Services***
+
+This is defined as the percentage of schools with handwashing facilities with 
+water and soap available. 
+
+There are **5 visualisations** included in this document:
+
+  - World Map Chart
+  - Bar Chart
+  - Scatter Plot (Split b/w Continents)
+  - Scatter Plot (With Regression Line)
+  - Time Series Plot
+
+
+```{r, include=FALSE}
+setwd("/cloud/project")
+
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("countrycode")
+install.packages("maps")
+install.packages("readr")
+
+
+library(dplyr)
+library(ggplot2)
+library(countrycode)
+library(maps)
+library(readr)
+library(knitr)
+library(magrittr)
+
+options(warn = -1)
+```
+
+
+
+```{r, echo=FALSE, include=FALSE}
+
+# Loading dataset and changing variable names for easy usage
+
+library(dplyr)
+library(ggplot2)
+library(countrycode)
+library(maps)
+library(readr)
+
+metadata <- read_csv("unicef_metadata.csv")
+ind_1 <- read_csv("unicef_indicator_1.csv")
+
+names(metadata)
+metadata_renamed <- rename(metadata, "pop" = "Population, total", "gdpcap" = "GDP per capita (constant 2015 US$)", 
+                           "GNI" = "GNI (current US$)", "inflation" = "Inflation, consumer prices (annual %)", "lifeExp" = "Life expectancy at birth, total (years)")
+                           
+```
+
+ 
+
+```{r, echo=FALSE, include=FALSE}
+
+# Adding new variable for continents
+
+metadata_continents <- metadata_renamed %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+ind_1_continents <- ind_1 %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+```  
+ 
+# World Map Chart
+
+The diagram below takes into account the % of schools globally with access to basic hygiene services in 2020. 
+
+***A higher percentage can be noted for developed countries vs. developing countries.***
+
+```{r, echo=FALSE}
+pop_2020 <- ind_1_continents %>% 
+  filter(time_period == "2020")
+
+map_world <- map_data("world") 
+map_pop_2020 <- full_join(map_world, pop_2020, by = c("region" = "country"))
+ggplot(data = map_pop_2020) +
+  aes(x = long, y = lat, group = group, fill = obs_value) +
+  geom_polygon() +
+  labs(
+    title = "Proportion of Schools with Basic Hygiene Services by Country in 2020",
+    subtitle = "Countries in grey depict lack of data",
+    caption = "Source: Unicef Indicator 1",
+    x = "Longitude",
+    y = "Latitude",
+    fill = "Observation Value (%)") +
+    theme_classic()
+    
+```
+The **lighter the blue, the higher the proportion of schools with access to basic hygiene services**. A general trend can be noted, where developed countries *(towards the North)* are lighter compared to developing countries *(South Asia and Africa)*. The South East is an exception with the likes of Australia and New Zealand etcetera, all of which are categorised as developed countries. 
+
+# Bar Chart
+
+The diagram below highlights India's efforts to improve access to basic hygiene services in Schools. 
+
+```{r, echo=FALSE}
+
+ind_1_continents %>%
+  filter(country %in% c("India")) %>%
+  ggplot(aes(x = time_period, y = obs_value)) +
+  geom_col() +
+  labs(x = "Year", y = "Observed value(%)", 
+       title = "India's Proportion of Schools w/ basic Hygiene Services over time") +
+  theme_minimal()
+
+```
+There is a steady increase in the number of schools over the years, however, growth stops after 2016 at about 50%. The Indian government should continue their efforts in ensuring all students have access to basic hygiene services. 
+
+
+
+```{r, echo=FALSE, include=FALSE}
+
+# Loading dataset and changing variable names for easy usage
+
+metadata <- read_csv("unicef_metadata.csv")
+ind_1 <- read_csv("unicef_indicator_1.csv")
+
+names(metadata)
+metadata_renamed <- rename(metadata, "pop" = "Population, total", "gdpcap" = "GDP per capita (constant 2015 US$)", 
+                           "GNI" = "GNI (current US$)", "inflation" = "Inflation, consumer prices (annual %)", "lifeExp" = "Life expectancy at birth, total (years)")
+                           
+```
+
+ 
+
+```{r, echo=FALSE, include=FALSE}
+
+# Adding new variable for continents
+
+metadata_continents <- metadata_renamed %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+ind_1_continents <- ind_1 %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+```
+
+
+
+```{r, echo=FALSE, include=FALSE}
+
+# Loading dataset and changing variable names for easy usage
+
+metadata <- read_csv("unicef_metadata.csv")
+ind_1 <- read_csv("unicef_indicator_1.csv")
+
+names(metadata)
+metadata_renamed <- rename(metadata, "pop" = "Population, total", "gdpcap" = "GDP per capita (constant 2015 US$)", 
+                           "GNI" = "GNI (current US$)", "inflation" = "Inflation, consumer prices (annual %)", "lifeExp" = "Life expectancy at birth, total (years)")
+                           
+
+# Adding new variable for continents 
+
+
+metadata_continents <- metadata_renamed %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+ind_1_continents <- ind_1 %>%
+  mutate(continent = countrycode(country, "country.name", "continent"))
+
+```
+
+# Scatter Plot
+### Split b/w Continents
+
+The diagram below provides an extensive insight as to the relationship between *life expectancy* and *GDP* in each continent. This is an important illustration as a lower GDP generally results in less spending on education, infrastructure and health, which may in turn result in more diseases and illnesses being spread through schools. 
+
+
+
+```{r, echo=FALSE}
+
+metadata_continents %>%
+  filter(year == "2020") %>%
+  ggplot(aes(x = gdpcap, y = lifeExp, color = continent)) +
+  geom_point() +
+  facet_wrap(~ continent) +
+  labs(x = "GDP Per Capita in 2020 (constant 2015 US$)", y = "Life Expectancy", 
+     title = "Life Expectancy vs GDP/capita in 2020") +
+  theme_classic()
+
+
+```
+
+
+
+With reference to the world map chart, we note that continents that house ***developing countries*** have a ***lower*** life expectany than continents that include developed countries, for example, Africa vs. Europe. 
+
+# Scatter Plot
+### With Regression Line
+
+This scatter plot takes into account 5 regions:
+  1. Africa
+  2. Americas
+  3. Asia
+  4. Europe
+  5. Oceania
+
+```{r, echo=FALSE}
+
+options(warn = -1)
+
+suppressPackageStartupMessages(library(ggplot2))
+
+cat(capture.output(metadata_continents %>%
+  filter(year == "2020") %>%
+  ggplot(aes(x = gdpcap, y = lifeExp, color = continent, warning = FALSE)) +
+  geom_point() + try(geom_smooth(method = "lm", se = FALSE, formula = y ~ x), silent = TRUE) + # For regression line
+  labs(x = "GDP Per Capita (constant 2015 US $)", y = "Life Expectancy (years)", color = "Continent",
+       title = "Life Expectancy vs GDP/capita in 2020") +
+  theme_classic()
+))
+```
+
+This diagram makes use of regression lines to show a key trend: **Higher GDP results in longer life expectancy.** For example, as the GDP per capita in Europe goes up, so does the life expectany. 
+
+*We also see that in Africa, for example, a slight increase in GDP results in a massive increase in life expectancy. This means that even small investments in developing regions can have large impacts on the quality of life.*
+
+# Time series Plot
+
+The time series plot again looks at India. The same pattern is seen as the Bar Chart. 
+```{r, echo=FALSE}
+
+ind_1 %>%
+  filter(country %in% c("India")) %>% # filter for rows where country is "India"
+  ggplot(aes(x = time_period, y = obs_value)) + 
+  geom_line() + # plot the lines
+  labs(x = "Year",y = "Observation Value (%)",
+          title = "Proportion of Schools w/ basic Hygiene Services in India") +
+  theme_bw()
+
+```
+
+There is a gradual increase in the proportion of basic hygiene services at schools, however, the level stops increasing after 2016 and remains stagnant thereafter. 
+
+---
+
+*The aim of these illustrations was to highlight the disparity in access to basic hygiene services in developing and developed countries. Overall, there seems to be less investment in this sector (educational infrastructure) in developing countries than developed countries. This is due to the fact that developing countries have more pressing issues to cater to, and access to handwash and water at schools may not be a top priority for governments.* 
+
+---
+
+This assignment has made use of:
+
+  - R code
+  - Data Transformations
+  - GGPLOT
+  - Markdown Styles
+
+---
+
+Thanks!
+
+
