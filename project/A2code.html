@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Bilal Shahid">
+<meta name="dcterms.date" content="2023-04-26">
+
+<title>DA&amp;V Assignment 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="A2code_files/libs/clipboard/clipboard.min.js"></script>
+<script src="A2code_files/libs/quarto-html/quarto.js"></script>
+<script src="A2code_files/libs/quarto-html/popper.min.js"></script>
+<script src="A2code_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="A2code_files/libs/quarto-html/anchor.min.js"></script>
+<link href="A2code_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="A2code_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="A2code_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="A2code_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="A2code_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">DA&amp;V Assignment 2</h1>
+<p class="subtitle lead">MSc. Management (Strategy)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Bilal Shahid </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 26, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>These visualisations are made for <em>‘Assignment 2’</em> of the Data Analytics and Visualisations course at DCU for my Masters degree. Data is adopted from UNICEF.</p>
+<p>The primary indicator used is:</p>
+<p><strong><em>Proportion of Schools With Basic Hygiene Services</em></strong></p>
+<p>This is defined as the percentage of schools with handwashing facilities with water and soap available.</p>
+<p>There are <strong>5 visualisations</strong> included in this document:</p>
+<ul>
+<li>World Map Chart</li>
+<li>Bar Chart</li>
+<li>Scatter Plot (Split b/w Continents)</li>
+<li>Scatter Plot (With Regression Line)</li>
+<li>Time Series Plot</li>
+</ul>
+<section id="world-map-chart" class="level1">
+<h1>World Map Chart</h1>
+<p>The diagram below takes into account the % of schools globally with access to basic hygiene services in 2020.</p>
+<p><strong><em>A higher percentage can be noted for developed countries vs.&nbsp;developing countries.</em></strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="A2code_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The <strong>lighter the blue, the higher the proportion of schools with access to basic hygiene services</strong>. A general trend can be noted, where developed countries <em>(towards the North)</em> are lighter compared to developing countries <em>(South Asia and Africa)</em>. The South East is an exception with the likes of Australia and New Zealand etcetera, all of which are categorised as developed countries.</p>
+</section>
+<section id="bar-chart" class="level1">
+<h1>Bar Chart</h1>
+<p>The diagram below highlights India’s efforts to improve access to basic hygiene services in Schools.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="A2code_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>There is a steady increase in the number of schools over the years, however, growth stops after 2016 at about 50%. The Indian government should continue their efforts in ensuring all students have access to basic hygiene services.</p>
+</section>
+<section id="scatter-plot" class="level1">
+<h1>Scatter Plot</h1>
+<section id="split-bw-continents" class="level3">
+<h3 class="anchored" data-anchor-id="split-bw-continents">Split b/w Continents</h3>
+<p>The diagram below provides an extensive insight as to the relationship between <em>life expectancy</em> and <em>GDP</em> in each continent. This is an important illustration as a lower GDP generally results in less spending on education, infrastructure and health, which may in turn result in more diseases and illnesses being spread through schools.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="A2code_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>With reference to the world map chart, we note that continents that house <strong><em>developing countries</em></strong> have a <strong><em>lower</em></strong> life expectany than continents that include developed countries, for example, Africa vs.&nbsp;Europe.</p>
+</section>
+</section>
+<section id="scatter-plot-1" class="level1">
+<h1>Scatter Plot</h1>
+<section id="with-regression-line" class="level3">
+<h3 class="anchored" data-anchor-id="with-regression-line">With Regression Line</h3>
+<p>This scatter plot takes into account 5 regions:</p>
+<ol type="1">
+<li>Africa</li>
+<li>Americas</li>
+<li>Asia</li>
+<li>Europe</li>
+<li>Oceania</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="A2code_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This diagram makes use of regression lines to show a key trend: <strong>Higher GDP results in longer life expectancy.</strong> For example, as the GDP per capita in Europe goes up, so does the life expectany.</p>
+<p><em>We also see that in Africa, for example, a slight increase in GDP results in a massive increase in life expectancy. This means that even small investments in developing regions can have large impacts on the quality of life.</em></p>
+</section>
+</section>
+<section id="time-series-plot" class="level1">
+<h1>Time series Plot</h1>
+<p>The time series plot again looks at India. The same pattern is seen as the Bar Chart.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="A2code_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>There is a gradual increase in the proportion of basic hygiene services at schools, however, the level stops increasing after 2016 and remains stagnant thereafter.</p>
+<hr>
+<p><em>The aim of these illustrations was to highlight the disparity in access to basic hygiene services in developing and developed countries. Overall, there seems to be less investment in this sector (educational infrastructure) in developing countries than developed countries. This is due to the fact that developing countries have more pressing issues to cater to, and access to handwash and water at schools may not be a top priority for governments.</em></p>
+<hr>
+<p>This assignment has made use of:</p>
+<ul>
+<li>R code</li>
+<li>Data Transformations</li>
+<li>GGPLOT</li>
+<li>Markdown Styles</li>
+</ul>
+<hr>
+<p>Thanks!</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
